@@ -38,27 +38,32 @@ public class CommunicationThread extends Thread {
                     String url = bufferedReader.readLine();
                     if (url != null && !url.isEmpty()) {
                         Log.d("==========", url);
-                        if(!url.contains("bad")) {
-                        HttpClient httpClient = new DefaultHttpClient();
-                        HttpGet httpGet = new HttpGet(url);
-                        ResponseHandler<String> responseHandlerGet = new BasicResponseHandler();
-                        try {
-                            String result = httpClient.execute(httpGet, responseHandlerGet);
-                            printWriter.println(result);
+                        if (!url.contains("bad")) {
+                            HttpClient httpClient = new DefaultHttpClient();
+                            HttpGet httpGet = new HttpGet(url);
+                            ResponseHandler<String> responseHandlerGet = new BasicResponseHandler();
+                            try {
+                                String result = httpClient.execute(httpGet, responseHandlerGet);
+                                printWriter.println(result);
 
-                        } catch (ClientProtocolException clientProtocolException) {
-                            Log.e(Constants.TAG, clientProtocolException.getMessage());
-                            if (Constants.DEBUG) {
-                                clientProtocolException.printStackTrace();
+                            } catch (ClientProtocolException clientProtocolException) {
+                                Log.e(Constants.TAG, clientProtocolException.getMessage());
+                                if (Constants.DEBUG) {
+                                    clientProtocolException.printStackTrace();
+                                }
+                            } catch (IOException ioException) {
+                                Log.e(Constants.TAG, ioException.getMessage());
+                                if (Constants.DEBUG) {
+                                    ioException.printStackTrace();
+                                }
                             }
-                        } catch (IOException ioException) {
-                            Log.e(Constants.TAG, ioException.getMessage());
-                            if (Constants.DEBUG) {
-                                ioException.printStackTrace();
-                            }
+                        } else {
+                                String result = "";
+                                printWriter.println(result);
+
+
                         }
                     }
-                }
                 }
             } catch (IOException e) {
 
